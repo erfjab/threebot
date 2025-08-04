@@ -1,4 +1,4 @@
-from decouple import config
+from decouple import config, Csv
 from dotenv import load_dotenv
 
 load_dotenv(override=True)
@@ -20,3 +20,13 @@ UVICORN_HOST = config("UVICORN_HOST", default="0.0.0.0")
 UVICORN_SSL_CERTFILE = config("UVICORN_SSL_CERTFILE", default="")
 UVICORN_SSL_KEYFILE = config("UVICORN_SSL_KEYFILE", default="")
 DOCS = config("DOCS", default="/docs", cast=str)
+
+
+### Bot Settings
+TELEGRAM_API_TOKEN = config("TELEGRAM_API_TOKEN", default="", cast=str)
+TELEGRAM_ADMINS_ID = config("TELEGRAM_ADMINS_ID", cast=Csv(int)) or []
+TELEGRAM_LOGGER_GROUP_ID = config("TELEGRAM_LOGGER_GROUP_ID", default=0, cast=int)
+TELEGRAM_WEBHOOK_HOST = config("TELEGRAM_WEBHOOK_HOST", default="", cast=str)
+TELEGRAM_WEBHOOK_SECRET_KEY = config(
+    "TELEGRAM_WEBHOOK_SECRET_KEY", default="", cast=str
+)
