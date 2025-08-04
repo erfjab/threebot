@@ -2,7 +2,6 @@ from contextlib import asynccontextmanager
 from typing import AsyncIterator
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession, async_sessionmaker
 from sqlalchemy.orm import DeclarativeBase
-from sqlalchemy.exc import SQLAlchemyError
 from src.config import SQLALCHEMY_DATABASE_URL
 
 engine = create_async_engine(
@@ -31,7 +30,4 @@ class Base(DeclarativeBase):
 async def GetDB() -> AsyncIterator[AsyncSession]:
     async with AsyncSessionLocal() as session:
         async with session.begin():
-            try:
-                yield session
-            except SQLAlchemyError:
-                raise
+            yield session
